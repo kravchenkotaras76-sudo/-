@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для Ксюши ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    background: linear-gradient(135deg, #ffb6d9, #e7b5ff);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    background: white;
+    padding: 35px 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px #9b348555;
+    width: 90%;
+    max-width: 420px;
+    animation: appear 1s ease;
+}
+
+h2 { color: #e91e63; }
+
+h3 { color: #a13c9d; }
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #ffc1df;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit {
+    width: 100%;
+    padding: 14px;
+    background: #e91e63;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 12px 0;
+    background: linear-gradient(45deg, #ff4081, #c850ff);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px #e91e6377;
+}
+
+#question {
+    display: none;
+}
+
+#result {
+    margin-top: 20px;
+    color: #e91e63;
+    font-size: 21px;
+    font-weight: bold;
+    min-height: 30px;
+}
+
+.show {
+    animation: bounce 0.7s ease;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 25px;
+    animation: float 7s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0% { transform: scale(0.5); }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Для Ксюши ❤️</h2>
+
+    <div id="first">
+        <p>Эта эмоция закрыта словом 🌸</p>
+
+        <input id="word" placeholder="Введи слово...">
+
+        <button class="submit" onclick="checkWord()">
+            Открыть ❤️
+        </button>
+    </div>
+
+    <div id="question">
+        <h3>Что будем делать? 🎮</h3>
+
+        <button class="option" onclick="answer(1)">
+            1. Незнаю, гоу в роблокс
+        </button>
+
+        <button class="option" onclick="answer(2)">
+            2. Может в роблокс?
+        </button>
+
+        <button class="option" onclick="answer(3)">
+            3. Пошли в роблокс
+        </button>
+
+        <button class="option" onclick="answer(4)">
+            4. Давай в роблокс
+        </button>
+    </div>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+function checkWord() {
+    let word = document.getElementById("word").value.trim();
+
+    if (word === "") {
+        document.getElementById("result").innerHTML =
+            "Сначала напиши слово 😂";
+        return;
+    }
+
+    document.getElementById("first").style.display = "none";
+    document.getElementById("question").style.display = "block";
+
+    document.getElementById("result").innerHTML = "";
+}
+
+function answer(number) {
+    let answers = [
+        "Незнаю, гоу в роблокс 🎮❤️",
+        "Может в роблокс? 🎮💕",
+        "Пошли в роблокс! 🎮💗",
+        "ДАВАЙ В РОБЛОКС!!! 🎮💖"
+    ];
+
+    let result = document.getElementById("result");
+
+    result.classList.remove("show");
+    void result.offsetWidth;
+
+    result.innerHTML = answers[number - 1];
+    result.classList.add("show");
+
+    for (let i = 0; i < 10; i++) createHeart();
+}
+
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = ["❤️", "💗", "💕", "💖", "🌸"][
+        Math.floor(Math.random() * 5)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 9000);
+}
+
+setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
